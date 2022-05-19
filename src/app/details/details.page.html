@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>details</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <img [src]="voiture.image">
+    <ion-card-header>
+      <ion-card-subtitle> {{ voiture.marque }}</ion-card-subtitle>
+      <ion-card-title>{{voiture.model}} - {{voiture.annee}} </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{voiture.description}}
+      <br>
+      <b (click)="voir()" *ngIf="!afficher">...voir plus</b>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="afficher">
+    <ion-card-content>
+      {{voiture.description2}}
+      <br>
+      <ion-text color="primary"><b (click)="masquer()">...voir moins</b></ion-text>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="ion-text-center">
+    <ion-card-content>
+      <ion-button expand="block" (click)="navigation(voiture)">reserver</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

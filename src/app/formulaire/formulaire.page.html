@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+        <ion-button (click)="presentPopover($event)">
+          <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+
+    <ion-title>formulaire</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-content>
+
+    <ion-item *ngIf="voiture" lines="none">
+      <ion-thumbnail slot="end"> 
+        <img [src]="voiture.image">
+      </ion-thumbnail>
+      <ion-label>
+        {{voiture.model}} {{voiture.annee}} <br>
+        {{voiture.marque}} <br>
+        {{voiture.prix_location}} FCFA
+      </ion-label>
+    </ion-item>
+
+    <h2 *ngIf="!voiture"> aucun objet</h2>
+
+    </ion-card-content>
+  </ion-card>
+
+<ion-card>
+  <ion-card-content>
+
+    <ion-item>
+      <ion-label>Nom
+        <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input type="text" [(ngModel)]="nom" (ionChange)="nomError=false" [disabled]="isEdit" ></ion-input>
+    </ion-item> 
+    <ion-text *ngIf="nomError" color="danger">
+      <p>Veuillez saisir votre nom 
+      <ion-icon slot="end" name="arrow-up"></ion-icon>
+      </p>
+  </ion-text>
+  
+    <ion-item>
+      <ion-label>Téléphone</ion-label>
+      <ion-input type="tel" maxlength="8" minlength="3" [(ngModel)]="telephone"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Nombre de jour</ion-label>
+      <ion-input [(ngModel)]="nbr_jour" (ionChange)="calculateur()"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Coût location</ion-label>
+      <ion-input [(ngModel)]="cout_total" readonly></ion-input>
+    </ion-item>
+
+    <br><br>
+
+    <ion-button *ngIf="!isEdit" expand="block" (click)="valider()" >Valider</ion-button>
+
+    <ion-grid *ngIf="isEdit">
+      <ion-row>
+        <ion-col size="6">
+          <ion-button expand="block" (click)="save_edit()" >Modifier</ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button expand="block" (click)="annuler_edit()" color="light">Annuler</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-card-content>
+</ion-card>
+
+
+<ion-card *ngIf="list_reservations">
+  <ion-searchbar type="text" [(ngModel)]="str" (ionChange)="rechercher()" placeholder="Rechercher"></ion-searchbar>
+  <ion-item *ngFor="let item of list_reservations">
+    <ion-label>
+      {{item.nom}} <br>
+      {{item.vehicule.model}} - {{item.vehicule.annee}} <br>
+      {{item.cout_total}}
+    </ion-label>
+    <ion-button (click)="edit(item)">
+      modifier
+      <ion-icon slot="end" name="create"></ion-icon>
+    </ion-button>
+    <ion-button color="danger" (click)="alertConfirmation(item)">
+    <ion-icon slot="icon-only" name="trash"></ion-icon>
+    </ion-button>
+  </ion-item>
+</ion-card>
+
+</ion-content>

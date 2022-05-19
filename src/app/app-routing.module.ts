@@ -8,9 +8,26 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
+  {
+    path: 'details',
+    loadChildren: () => import('./details/details.module').then( m => m.DetailsPageModule)
+  },
+  {
+    path: 'formulaire',
+    loadChildren: () => import('./formulaire/formulaire.module').then( m => m.FormulairePageModule)
+  },
+  {
+    path: 'popover-toolbar',
+    loadChildren: () => import('./popover-toolbar/popover-toolbar.module').then( m => m.PopoverToolbarPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  
 ];
 
 @NgModule({

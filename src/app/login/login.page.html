@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Ma Voiture</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-card style="margin-top:15%;">
+  <ion-card-header class="ion-text-center">
+    <ion-progress-bar *ngIf="chargement_en_cours" type="indeterminate"></ion-progress-bar>
+    <ion-card-subtitle>authentification
+      <ion-icon name="lock-closed" color="success"></ion-icon>
+    </ion-card-subtitle>
+    <ion-card-title>Connexion</ion-card-title>
+  </ion-card-header>
+  <ion-card-content >
+    <ion-card>
+      <ion-item>
+        <ion-label position="stacked">Nom d'utilisateur</ion-label>
+        <ion-input (ionChange)="usernameError=false" type="text" [(ngModel)]="username" placeholder="Nom d'utilisateur"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="usernameError">
+        <p class="ion-padding-start">Entrez votre d'utilisateur 
+          <ion-icon name="arrow-up"></ion-icon>
+        </p>
+      </ion-text>
+    </ion-card>
+    <ion-card>
+            <ion-item>
+              <ion-buttons slot="end">
+                <ion-button fill="clear" (click)="afficher_mdp=!afficher_mdp">
+                  <ion-icon slot="icon-only" size="large" [name]="afficher_mdp?'eye-off':'eye'"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+              <ion-label position="stacked">Mot de passe</ion-label>
+              <ion-input (ionChange)="passwordError=false" [type]="afficher_mdp?'text':'password'" [(ngModel)]="password" placeholder="Mot de passe"></ion-input>
+            </ion-item> 
+            <ion-text color="danger" *ngIf="passwordError">
+              <p class="ion-padding-start">Entrez votre mot de passe 
+                <ion-icon name="arrow-up"></ion-icon>
+              </p>
+            </ion-text>
+    </ion-card>
+  </ion-card-content>
+  <ion-card-content class="ion-text-center">
+    <ion-button (click)="login()" shape="round" [disabled]="chargement_en_cours">
+      connexion &nbsp;
+      <ion-spinner *ngIf="chargement_en_cours"></ion-spinner>
+    </ion-button>
+  </ion-card-content>
+</ion-card>
+</ion-content>
